@@ -1,0 +1,13 @@
+#!/bin/bash
+
+vpnc
+
+if [ -z "$1" ]
+then
+  while true
+  do
+    sleep 10
+  done
+else
+  socat TCP-LISTEN:80,fork "TCP:$1"
+fi

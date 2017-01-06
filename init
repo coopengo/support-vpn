@@ -1,0 +1,13 @@
+#!/bin/bash
+
+main() {
+  [ -z "$1" ] && echo missing env name && return 1
+  [ -e "$1" ] && echo existing env name && return 1
+  mkdir "$1"
+  mkdir "$1/workspace"
+  mkdir "$1/vpnc"
+  touch "$1/vpnc/default.conf"
+  echo "now you can set vpn config inside $1/vpnc/default.conf"
+}
+
+main "$@"
