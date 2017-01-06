@@ -4,5 +4,6 @@
 !Dockerfile
 !docker-entrypoint
 !init
-!run
 !build
+!run
+!ip
