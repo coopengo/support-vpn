@@ -1,5 +1,0 @@
-#!/bin/bash
-
-[ -z "$1" ] && echo missing env name && exit 1
-
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$1-vpn"

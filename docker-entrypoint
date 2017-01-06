@@ -1,13 +1,20 @@
 #!/bin/bash
 
-vpnc
+main() {
+  vpnc
+  if [ -z "$1" ]
+  then
+    while true
+    do
+      sleep 10
+    done
+  else
+    local me; me=$(hostname -i)
+    local host; host=$(echo "$1" | cut -d ":" -f 1)
+    local port; port=$(echo "$1" | cut -d ":" -f 2)
+    echo "proxying $host:$port on $me:$port"
+    socat "TCP-LISTEN:$port,fork" "TCP:$host:$port"
+  fi
+}
 
-if [ -z "$1" ]
-then
-  while true
-  do
-    sleep 10
-  done
-else
-  socat TCP-LISTEN:80,fork "TCP:$1"
-fi
+main "$@"
