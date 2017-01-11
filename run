@@ -2,12 +2,14 @@
 
 main() {
   [ -z "$1" ] && echo missing env name && return 1
+  local ENV=$1
+  shift
   docker run \
     -d --privileged=true \
-    --name="$1-vpn" \
-    -v "$(pwd)/$1/vpnc:/etc/vpnc:ro" \
-    -v "$(pwd)/$1/workspace:/root/workspace:ro" \
-    coog/vpn "$2"
+    --name="$ENV-vpn" \
+    -v "$(pwd)/$ENV/vpnc:/etc/vpnc:ro" \
+    -v "$(pwd)/$ENV/workspace:/root/workspace:ro" \
+    coog/vpn "$@"
 }
 
 main "$@"
