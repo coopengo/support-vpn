@@ -10,10 +10,19 @@ main() {
     done
   else
     local me; me=$(hostname -i)
-    local host; host=$(echo "$1" | cut -d ":" -f 1)
-    local port; port=$(echo "$1" | cut -d ":" -f 2)
-    echo "proxying $host:$port on $me:$port"
-    socat "TCP-LISTEN:$port,fork" "TCP:$host:$port"
+    local host; host=$1
+    shift
+    echo "proxying $host on $me"
+    while [ ! -z "$1" ]
+    do
+        socat "TCP-LISTEN:$1,fork" "TCP:$host:$1" &
+        echo "port --> $1"
+        shift
+    done
+    while true
+    do
+      sleep 10
+    done
   fi
 }
 
